@@ -251,14 +251,15 @@ _EOF
     osType=`sed -n '1p' /etc/issue | tr -s " " | cut -d " " -f 1 | \
         grep -i "[ubuntu|centos]"`
     # fix dependency all together.
+    # libsodium-dev mbedtls-dev
     case "$osType" in
         'Ubuntu')
             echo "OS is Ubuntu..."
             # sudo apt-get update
-            sudo apt-get instalal build-essentials \
+            sudo apt-get install build-essential \
                 gcc gettext autoconf libtool automake make \
-                pcre-dev asciidoc xmlto c-ares-dev libev-dev \
-                libsodium-dev mbedtls-dev -y
+                libghc-regex-pcre-dev asciidoc xmlto libc-ares-dev \
+                libev-dev -y
             ;;
 
         'CentOS' | 'Red')

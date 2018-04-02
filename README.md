@@ -4,6 +4,7 @@
     - personal hobby
     - support udp relay
     - maybe faster
+- Support CentOS, code also for Ubuntu, though not checked yet
 
 Current released version v1.0
 
@@ -38,4 +39,4 @@ sh oneKey.sh install
 ```
 
 ## License
-The [MIT]() License(MIT)
+The [MIT](https://github.com/xiangp126/let-ss/blob/master/LICENSE.txt) License(MIT)
