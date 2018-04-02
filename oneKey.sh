@@ -13,6 +13,7 @@ execPrefix=""
 downloadPath=$mainWd/downloads
 pkgPath=$mainWd/packages
 runMoreTimeFlag=$mainWd/.MORETIME
+ssInitFile=$mainWd/shadowsocks
 
 logo() {
     cat << "_EOF"
@@ -185,6 +186,51 @@ _EOF
     ssServerPath=$ssInstDir/bin/ss-server
 }
 
+# add support for /etc/init.d/shadowsocks start
+writeInitFile() {
+    # _ssJsonFile=$1
+    # _ssPidFile=$2
+    cat << _EOF > $ssInitFile
+#!/bin/bash
+
+start(){
+    $ssServerPath -c $ssJsonSysPath -f $ssPidFile -u
+}
+
+stop() {
+    killall ss-server 2> /dev/null
+    rm -rf $ssPidFile
+}
+
+_EOF
+    cat << "_EOF" >> $ssInitFile
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    'reload')
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|reload|stop}"
+        exit 1
+        ;;
+esac
+_EOF
+    chmod +x $ssInitFile
+    ls -l $ssInitFile
+    if [[ $? != 0 ]]; then
+        echo "[Error]: write init file $ssInitFil error, please check"
+    fi
+    if [[ ! -f /etc/init.d/shadowsocks ]]; then
+        sudo cp $ssInitFile /etc/init.d
+    fi
+}
+
 startService() {
     cat << "_EOF"
 ------------------------------------------------------
@@ -294,6 +340,7 @@ install() {
     installAutoConf
     installShadowSocks
     startService
+    writeInitFile
     installSummary
     echo "Build Done!" > $runMoreTimeFlag
 }
@@ -306,6 +353,8 @@ INSTALLATION SUMMARY
 ------------------------------------------------------
 autoconf path = $autoconfPath
 ss-server path=$ssServerPath
+Use 'service shadowsocks' to start/stop
+Put '/etc/init.d/shadowsocks start' under /etc/rc.local
 ------------------------------------------------------
 _EOF
 }

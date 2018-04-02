@@ -1,10 +1,13 @@
 - This project aims to deploy shadowsocks from source on your VPS by just single command
-    - Just to save my time when tranfserred between different VPS
+    - just to save my time when tranfserred between different VPS
+    - dynamic generate executable file for /etc/init.d/ use
 - Why choose c version of source
-    - personal hobby
     - support udp relay
     - maybe faster
-- Support CentOS, code also for Ubuntu, though not checked yet
+- Why choose CentOS
+    - personal hobby
+    - good reputation for running as server
+    - code also for Ubuntu, though not checked yet
 
 Current released version v1.0
 
