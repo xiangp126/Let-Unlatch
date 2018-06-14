@@ -318,9 +318,11 @@ _EOF
             ;;
 
         *)
-            echo Not Ubuntu or CentOS
-            echo not sure whether this script would work
-            echo Please check it yourself ...
+            cat << _EOF
+Not Ubuntu or CentOS
+not sure whether this script would work
+Please check it yourself ...
+_EOF
             exit
         ;;
     esac
