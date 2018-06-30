@@ -165,6 +165,7 @@ _EOF
 
     cd $clonedName
     # checkout to latest released tag
+    git submodule update --init --recursive
     git pull
     latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
     if [[ "$latestTag" != "" ]]; then
@@ -174,6 +175,7 @@ _EOF
     # checkout
     git checkout $checkoutVersion
     # run make routine
+    sh autogen.sh
     autoconf
     ./configure --prefix=$ssInstDir
     make -j
@@ -247,7 +249,7 @@ _EOF
     # if [[ "$oldPid" != "" ]]; then
     #     kill -15 $oldPid
     # fi
-    killall -15 ss-server 2> /dev/null
+    $execPrefix killall -15 ss-server 2> /dev/null
     # if [[ $? != 0 ]]; then
     #     echo "[Warning]: kill ss-server err, just pay attention"
     # fi
@@ -308,11 +310,11 @@ _EOF
                 libev-dev -y
             ;;
 
-        'CentOS' | 'Red')
+        'CentOS' | 'Red' | '\S')
             echo "OS is CentOS or Red Hat..."
             # sudo yum update
             sudo yum install epel-release \
-                gcc gettext autoconf libtool automake make \
+                gcc gettext autoconf libtool automake make psmisc \
                 pcre-devel asciidoc xmlto c-ares-devel libev-devel \
                 libsodium-devel mbedtls-devel -y
             ;;
@@ -356,7 +358,7 @@ INSTALLATION SUMMARY
 autoconf path = $autoconfPath
 ss-server path=$ssServerPath
 Use 'service shadowsocks' to start/stop
-Put '/etc/init.d/shadowsocks start' under /etc/rc.local
+'/etc/init.d/shadowsocks start' under /etc/rc.local
 ------------------------------------------------------
 _EOF
 }
