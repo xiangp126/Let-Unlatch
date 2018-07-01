@@ -166,14 +166,14 @@ _EOF
     cd $clonedName
     # checkout to latest released tag
     git submodule update --init --recursive
-    git pull
+    git pull origin master
     latestTag=$(git describe --tags `git rev-list --tags --max-count=1`)
     if [[ "$latestTag" != "" ]]; then
         git checkout $latestTag
     fi
 
     # checkout
-    git checkout $checkoutVersion
+    git checkout v3.1.3
     # run make routine
     sh autogen.sh
     autoconf
