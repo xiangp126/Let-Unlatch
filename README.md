@@ -1,17 +1,18 @@
-- This project aims to deploy shadowsocks from source on your VPS by just single command
-    - just to save my time when tranfserred between different VPS
+### Illustrate
+- This project aims to deploy shadowsocks from source on your `VPS` by just single command
+    - just to save my time when tranfserred between different `VPS`
     - dynamic generate executable file for /etc/init.d/ use
-- Why choose c version of source
+- Why choose `c` version of source
     - support udp relay
-    - maybe faster
+    - work faster
 - Why choose CentOS
     - personal hobby
     - good reputation for running as server
-    - code also for Ubuntu, though not checked yet
+- code also for Ubuntu, though not checked yet
 
 Current released version v1.0
 
-## Quick Start
+### Quick Start
 ```bash
 > sh oneKey.sh
 [NAME]
@@ -39,8 +40,8 @@ Current released version v1.0
 ```
 
 ```bash
-sh oneKey.sh install
+sh oneKey.sh root
 ```
 
-## License
+### License
 The [MIT](https://github.com/xiangp126/let-ss/blob/master/LICENSE.txt) License(MIT)
